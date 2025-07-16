@@ -1,0 +1,519 @@
+{
+  "name": "Super_CS",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "09c506eb-45f9-4285-9f81-a003858dc326",
+      "name": "Telegram Trigger",
+      "webhookId": "502c0357-6c4f-49b6-beb8-50d9ce5b21a6",
+      "credentials": {
+        "telegramApi": {
+          "id": "n4y0AN5XWGwcqwS6",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "anda akan berperan sebagai admin CS dalam sebuah kepanitiaan 17-an, tugas anda memberikan informasi kepada pemberi pesan (informasi tersedia pada google docs di tools)\n\nkondisi :\napabila ada pesan masuk tanyakan apakah kebutuhan dan status dia apabila statusnya : \n1. anggota : anda dapat memberikan link untuk pelaporan atau keluhan\n2. pendaftar : anda dapat berikan link pendaftaran anggota (pada sheet link)\n3. ketua panitia : anda dapat berikan link laporan, keluhan dan hak untuk menulis jadwal pada calendar\n4. tidak memiliki status : anda dapat menawarkan menjadi anggota atau memberi tahu informasi kegiatan\n\njika statusnya anggota atau ketua panitia anda harus mengeceknya dahulu di sheet daftar panitia, jika tidak terdaftar maka lakukan seperti kondisi 2\n\nsemua informasi tersebut terdaapt pada google sheet pada tools"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "fe486a22-67b5-4252-8654-017b98db72e5",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "ambil informasi link sesuai kebutuhan",
+        "documentId": {
+          "__rl": true,
+          "value": "1DFdmZ4LUbsv0tkirKbx1fYVQ-VUoVj5QQ2crl8BHLLY",
+          "mode": "list",
+          "cachedResultName": "link_kebutuhan",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DFdmZ4LUbsv0tkirKbx1fYVQ-VUoVj5QQ2crl8BHLLY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DFdmZ4LUbsv0tkirKbx1fYVQ-VUoVj5QQ2crl8BHLLY/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        200,
+        280
+      ],
+      "id": "83598279-c50e-4064-a74a-854876d4cec8",
+      "name": "link",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "iVm68ifv2AruvZpS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1gfXNOziAIj_L0WDkSOacukpl76I2gEfiDW1TqQJ-nKY",
+          "mode": "list",
+          "cachedResultName": "n8n_form_keluhan (Jawaban)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gfXNOziAIj_L0WDkSOacukpl76I2gEfiDW1TqQJ-nKY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 636328100,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gfXNOziAIj_L0WDkSOacukpl76I2gEfiDW1TqQJ-nKY/edit#gid=636328100"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        300,
+        280
+      ],
+      "id": "f2b90af9-5964-4f37-a721-b58813aa41e9",
+      "name": "laporan",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "iVm68ifv2AruvZpS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1gfXNOziAIj_L0WDkSOacukpl76I2gEfiDW1TqQJ-nKY",
+          "mode": "list",
+          "cachedResultName": "n8n_form_keluhan (Jawaban)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gfXNOziAIj_L0WDkSOacukpl76I2gEfiDW1TqQJ-nKY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 636328100,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gfXNOziAIj_L0WDkSOacukpl76I2gEfiDW1TqQJ-nKY/edit#gid=636328100"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        300,
+        420
+      ],
+      "id": "20f6a3ea-bf03-4c2f-9202-d084cbcac274",
+      "name": "keluhan",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "iVm68ifv2AruvZpS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1spx1gkweeHyapIB4ZGHxKr0mbk3YtIQR4SLLrd4H30w",
+          "mode": "list",
+          "cachedResultName": "n8n_form_daftar_panitian (Jawaban)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1spx1gkweeHyapIB4ZGHxKr0mbk3YtIQR4SLLrd4H30w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1785975995,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1spx1gkweeHyapIB4ZGHxKr0mbk3YtIQR4SLLrd4H30w/edit#gid=1785975995"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        200,
+        420
+      ],
+      "id": "52acedfb-4b03-4035-bd6b-63d35cab2699",
+      "name": "data panitia",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "iVm68ifv2AruvZpS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "redpencil1812@gmail.com",
+          "mode": "list",
+          "cachedResultName": "redpencil1812@gmail.com"
+        },
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}",
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "additionalFields": {
+          "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        620,
+        260
+      ],
+      "id": "32a4ad50-6127-48cb-abf3-e0c58e7688fd",
+      "name": "Create an event in Google Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "KJJEzXdCGyTh4IO7",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentURL": "1xL9e1PA8hpDNbhN1iHExkZN3zBrv8AXv_XlHY5rwKCs"
+      },
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2,
+      "position": [
+        400,
+        280
+      ],
+      "id": "e2fab181-8911-4490-9e4f-db94e09946e6",
+      "name": "informasi kegiatan",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "N5N1YnA5tSsbCOPI",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        600,
+        0
+      ],
+      "id": "f8185446-229a-470a-ac9e-993876f76f29",
+      "name": "Send a text message",
+      "webhookId": "2c1606e9-f6f2-47a6-87df-f3bc4a3073b8",
+      "credentials": {
+        "telegramApi": {
+          "id": "n4y0AN5XWGwcqwS6",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        60,
+        260
+      ],
+      "id": "632cea74-05d7-4819-8583-5e96d11aeac9",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -60,
+        260
+      ],
+      "id": "a7a0b240-3fd7-4e2a-ac28-4a9fd747ad0c",
+      "name": "GPT 4o",
+      "credentials": {
+        "openAiApi": {
+          "id": "L5x7xFaQvVm9GfOy",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Chat triger(Telegram)\n*Triger for every chat input*",
+        "height": 280
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -120
+      ],
+      "id": "1399d388-1040-4bba-975f-b5bcef977222",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## AI agen center model\n*all input procced by AI models from given data*",
+        "height": 280,
+        "width": 340,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        -120
+      ],
+      "id": "7283d9de-64ae-4436-9371-b8e746a24cd9",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Output (Telegram)\n*Send output from AI agen procced*",
+        "height": 280
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        540,
+        -120
+      ],
+      "id": "2724cbd4-26f9-4c82-a21e-c6c319ae32e0",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Information Center \n*give the AI agen information of event*",
+        "height": 380,
+        "width": 340,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        180
+      ],
+      "id": "12f5c8b1-d0a2-4a72-bce6-6ff479d4a553",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## AI Model \n*Abswer team or comite problem*",
+        "height": 200,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        180
+      ],
+      "id": "9322c370-fb6a-4dbd-9d16-f34487d874f9",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## I'm a note \n*make meeting report date or daily task*",
+        "height": 240,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        540,
+        180
+      ],
+      "id": "626f876d-b504-464a-a7cb-c87f8fe39297",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "## AI Agent | CS event comite",
+        "height": 80,
+        "width": 340
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        -220
+      ],
+      "id": "ebe71f44-85c4-4e60-a88d-35644cf53bbb",
+      "name": "Sticky Note6"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "link": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "laporan": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "keluhan": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "data panitia": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an event in Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "informasi kegiatan": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT 4o": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d33b4c4a-73c4-4c50-8f17-628a9eaf0a98",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "58b0fe835997becf4761b6b7e10c9ff62306d98962811ccea5404441a1bfad84"
+  },
+  "id": "WASkSuvSRrkOMibw",
+  "tags": []
+}
